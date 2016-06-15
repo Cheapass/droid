@@ -4,12 +4,12 @@ import LoggedOutWrapper from './LoggedOutWrapper';
 import styles from '../styles/auth.styles';
 import { connect } from 'react-redux';
 import { getIsLoggedIn, getLoginForm } from '../reducers';
+import * as Actions from '../actions/LoginActions';
 
 import {
   View,
   Text,
   TextInput,
-  Dimensions,
   TouchableHighlight
 } from 'react-native';
 
@@ -41,6 +41,8 @@ class Login extends React.Component {
               returnKeyType={'next'}
               keyboardType={'email-address'}
               enablesReturnKeyAutomatically={true}
+              onChangeText={(text) => this.props.onChange(text)}
+              onSubmitEditing={() => this.props.onSubmit()}
             />
 
             <TouchableHighlight style={{padding: 10}} underlayColor="#22446C">
@@ -52,7 +54,9 @@ class Login extends React.Component {
               />
             </TouchableHighlight>
           </View>
-          <Text style={styles.emailNotFound}>{errors.email ? errors.email : ''}</Text>
+          { Object.keys(errors).length ? (
+            <Text style={styles.emailNotFound}>{errors.email[0]}</Text>
+          ): null}
         </View>
       </LoggedOutWrapper>
     );
@@ -65,5 +69,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-
+  onChange: Actions.handleOnChangeEmail,
+  onSubmit: Actions.handleOnSubmitEmail,
 })(Login)
