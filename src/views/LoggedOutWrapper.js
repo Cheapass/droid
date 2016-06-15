@@ -24,7 +24,6 @@ class LoggedOutWrapper extends React.Component {
         <Text style={styles.tagLine}>Simplest Price Drop Alerts via Push Notifications</Text>
         <ScrollView
           contentContainerStyle={{flex: 1}}
-          contentOffset={this.props.scrollViewcontentOffset}
           keyboardShouldPersistTaps={true}
           >
           {this.props.children}
@@ -36,7 +35,6 @@ class LoggedOutWrapper extends React.Component {
 
 LoggedOutWrapper.propTypes = {
   showLoader: PropTypes.bool.isRequired,
-  scrollViewcontentOffset: PropTypes.object.isRequired
 };
 
 export default LoggedOutWrapper;

@@ -32,7 +32,7 @@ const LoginStyles = StyleSheet.create({
     flexWrap: 'nowrap',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 60,
+    height: 45,
     backgroundColor: '#24456B'
   },
   iconEmail: {

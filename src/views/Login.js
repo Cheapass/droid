@@ -14,32 +14,10 @@ import {
 } from 'react-native';
 
 class Login extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      contentOffset: {x: 0, y: 0}
-    };
-  }
-  onFocus () {
-    const { height } = Dimensions.get('window');
-    this.setState({
-      contentOffset: {
-        x: 0,
-        y: height * 1 / 3
-      }
-    });
-  }
-
-  onBlur () {
-    this.setState({
-      contentOffset: {x: 0, y: 0}
-    });
-  }
-
   render () {
     const {form: {email, errors}, autoFocus = false} = this.props;
     return (
-      <LoggedOutWrapper showLoader={false} scrollViewcontentOffset={this.state.contentOffset}>
+      <LoggedOutWrapper showLoader={false}>
         <View style={styles.formContainer}>
           <View style={styles.emailInputBar}>
             <View style={{padding: 10}}>
@@ -63,8 +41,6 @@ class Login extends React.Component {
               returnKeyType={'next'}
               keyboardType={'email-address'}
               enablesReturnKeyAutomatically={true}
-              onFocus={() => this.onFocus()}
-              onBlur={() => this.onBlur()}
             />
 
             <TouchableHighlight style={{padding: 10}} underlayColor="#22446C">
