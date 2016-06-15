@@ -13,7 +13,7 @@ class Root extends React.Component {
       <Provider store={store}>
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="login" component={Login} title="Login" initial={true} />
+            <Scene key="login" component={Login} title="Login" initial={true} hideNavBar={true} />
             <Scene key="dashboard" component={Dashboard} title="Dashboard" />
           </Scene>
         </RouterWithRedux>

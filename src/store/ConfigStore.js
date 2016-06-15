@@ -1,17 +1,15 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import CreateLogger from 'redux-logger';
 const logger = CreateLogger();
 import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
+import rootReducer from '../reducers/index';
+
+const createStoreWithMiddleware = compose(
+  applyMiddleware(thunk, logger)
+)(createStore);
 
 export default function configureStore () {
-  const createStoreWithMiddleware = applyMiddleware(
-    thunk, logger
-  )(createStore);
-
-  const store = createStoreWithMiddleware(combineReducers({
-    ...rootReducer
-  }))
+  const store = createStoreWithMiddleware(rootReducer);
 
   /*globals __DEV__ */
   if (__DEV__) {
