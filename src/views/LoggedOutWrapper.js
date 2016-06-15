@@ -6,9 +6,14 @@ import {
   View,
   Image,
   Text,
+  StatusBar,
 } from 'react-native';
 
 class LoggedOutWrapper extends React.Component {
+  componentDidMount () {
+    StatusBar.setHidden(true, 'slide');
+  }
+
   render () {
     return (
       <View style={styles.mainContainer}>
