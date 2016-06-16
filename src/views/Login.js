@@ -37,7 +37,6 @@ class Login extends React.Component {
               editable={true}
               autoCapitalize="none"
               autoCorrect={false}
-              autoFocus={true}
               returnKeyType={'next'}
               keyboardType={'email-address'}
               enablesReturnKeyAutomatically={true}

@@ -45,7 +45,6 @@ export default class Otp extends React.Component {
               editable={true}
               autoCapitalize="none"
               autoCorrect={false}
-              autoFocus={true}
               keyboardType="numeric"
               enablesReturnKeyAutomatically={true}
               onChangeText={(text) => this.props.onChange(text)}
