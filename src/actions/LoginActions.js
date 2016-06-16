@@ -48,10 +48,13 @@ export const handleOnSubmitEmail = () => {
         }
 
         dispatch({
-          type: HANDLE_SUBMIT_EMAIL_SUCCESS
+          type: HANDLE_SUBMIT_EMAIL_SUCCESS,
+          payload: {
+            email
+          }
         });
 
-        Actions.dashboard();
+        Actions.otp();
       })
       .catch((e) => console.log('error caught in request OTP ', e));
     });

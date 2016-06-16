@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import styles from '../styles/auth.styles';
+import LoadingOverlay from './LoadingOverlay';
 
 import {
   ScrollView,
@@ -28,6 +29,7 @@ class LoggedOutWrapper extends React.Component {
           >
           {this.props.children}
         </ScrollView>
+        <LoadingOverlay isVisible={this.props.showLoader} />
       </View>
     );
   }
