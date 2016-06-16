@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LoggedOutWrapper from './LoggedOutWrapper';
 import styles from '../styles/auth.styles';
 import { connect } from 'react-redux';
-import { getIsLoggedIn, getLoginForm } from '../reducers';
+import { getLoginForm } from '../reducers';
 import * as Actions from '../actions/LoginActions';
 
 import {
@@ -68,7 +68,6 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: getIsLoggedIn(state),
   form: getLoginForm(state),
 })
 

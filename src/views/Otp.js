@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LoggedOutWrapper from './LoggedOutWrapper';
 import styles from '../styles/auth.styles';
 import { connect } from 'react-redux';
-import { getIsLoggedIn, getOtpForm } from '../reducers';
+import { getOtpForm } from '../reducers';
 import * as Actions from '../actions/OtpActions';
 
 import {
@@ -80,7 +80,6 @@ export default class Otp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: getIsLoggedIn(state),
   form: getOtpForm(state),
 })
 
