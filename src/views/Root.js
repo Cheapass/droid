@@ -18,7 +18,7 @@ class Root extends React.Component {
             <Scene key="auth" component={Auth} title="Auth" initial={true} hideNavBar={true} />
             <Scene key="login" component={Login} title="Login" hideNavBar={true} />
             <Scene key="otp" component={Otp} title="Verify" hideNavBar={true} />
-            <Scene key="dashboard" component={Dashboard} title="Dashboard" hideNavBar={true} />
+            <Scene key="dashboard" component={Dashboard} title="Dashboard" />
           </Scene>
         </RouterWithRedux>
       </Provider>

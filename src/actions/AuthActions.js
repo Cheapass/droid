@@ -20,7 +20,6 @@ export const handleCheckLogin = () => dispatch => {
     AsyncStorage
     .getItem(keys.STORAGE_KEY_EMAIL)
     .then((email) => {
-      Actions.dashboard({email});
       dispatch({
         type: INIT_APP_WITH_LOGIN,
         payload: {
@@ -28,6 +27,7 @@ export const handleCheckLogin = () => dispatch => {
           email: email,
         }
       });
+      Actions.dashboard({email});
     })
   })
   .catch(() => {
