@@ -1,4 +1,5 @@
 import * as Actions from '../actions/LoginActions';
+import * as AuthActions from '../actions/AuthActions';
 
 const initialLoginForm = {
   email: '',
@@ -8,6 +9,7 @@ const initialLoginForm = {
 
 const loginForm = (state = initialLoginForm, action) => {
   switch (action.type) {
+    case AuthActions.INIT_APP_WITH_LOGIN:
     case Actions.HANDLE_ON_CHANGE_EMAIL: {
       return {
         ...state,

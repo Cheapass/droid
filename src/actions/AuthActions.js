@@ -25,6 +25,7 @@ export const handleCheckLogin = () => dispatch => {
         type: INIT_APP_WITH_LOGIN,
         payload: {
           login: true,
+          email: email,
         }
       });
     })
