@@ -2,8 +2,14 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingOverlay from './LoadingOverlay';
 import { connect } from 'react-redux';
-import { getTracks, getIsFetchingTracks } from '../reducers';
 import styles from '../styles/dashboard.styles';
+
+import {
+  getTracks,
+  getIsFetchingTracks,
+  getIsRefreshingTracks,
+} from '../reducers';
+
 import {
   handleFetchTracks
 } from '../actions/DashboardActions';
@@ -13,7 +19,8 @@ import {
   Image,
   Text,
   Dimensions,
-  ListView
+  ListView,
+  RefreshControl,
 } from 'react-native';
 
 // import SwipeableListView from 'SwipeableListView';
@@ -98,7 +105,7 @@ class Dashboard extends React.Component {
   }
 
   renderResults () {
-    const { tracks } = this.props;
+    const { tracks, isRefreshing } = this.props;
     if (!Object.keys(tracks).length) {
       return null;
     }
@@ -121,15 +128,26 @@ class Dashboard extends React.Component {
         renderSectionHeader={this.renderHeader}
         renderRow={this.renderTrack.bind(this)}
         renderQuickActions={this.renderQuickActions}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={() => this.props.handleFetchTracks(true)}
+            tintColor="#ff0000"
+            title="Loading..."
+            titleColor="#00ff00"
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            progressBackgroundColor="#fff"
+          />
+        }
       />
     );
   }
 
   render () {
-    const { isFetching } = this.props;
+    const { isFetching, isRefreshing } = this.props;
     return (
       <View style={styles.container} ref="containerView">
-        { isFetching ?
+        { isFetching && !isRefreshing ?
           <LoadingOverlay isVisible={true} />:
           this.renderResults()
         }
@@ -141,6 +159,7 @@ class Dashboard extends React.Component {
 const mapStateToProps = (state) => ({
   tracks: getTracks(state),
   isFetching: getIsFetchingTracks(state),
+  isRefreshing: getIsRefreshingTracks(state),
 })
 
 export default connect(mapStateToProps, {

@@ -28,3 +28,6 @@ export const getTracks = (state) =>
 
 export const getIsFetchingTracks = (state) =>
   fromDashboard.getIsFetching(state.dashboard)
+
+export const getIsRefreshingTracks = (state) =>
+  fromDashboard.getIsRefreshing(state.dashboard)

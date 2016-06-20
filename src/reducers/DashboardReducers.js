@@ -28,6 +28,21 @@ const isFetching = (state = false, action) => {
   }
 }
 
+const isRefreshing = (state = false, action) => {
+  switch (action.type) {
+    case Actions.HANDLE_FETCH_TRACKS_REQUEST:
+      if (action.payload.isRefresh) {
+        return true;
+      }
+      return false;
+    case Actions.HANDLE_FETCH_TRACKS_SUCCESS:
+    case Actions.HANDLE_FETCH_TRACKS_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+}
+
 const tracksById = (state = {}, action) => {
   switch (action.type) {
     case Actions.HANDLE_FETCH_TRACKS_SUCCESS: {
@@ -55,9 +70,12 @@ const tracksById = (state = {}, action) => {
 
 export default combineReducers({
   isFetching,
-  tracksById
+  isRefreshing,
+  tracksById,
 })
 
 export const getIsFetching = (state) => state.isFetching;
 
 export const getTracks = (state) => state.tracksById;
+
+export const getIsRefreshing = (state) => state.isRefreshing;

@@ -7,9 +7,12 @@ import {
 export const HANDLE_FETCH_TRACKS_REQUEST = 'HANDLE_FETCH_TRACKS_REQUEST';
 export const HANDLE_FETCH_TRACKS_SUCCESS = 'HANDLE_FETCH_TRACKS_SUCCESS';
 export const HANDLE_FETCH_TRACKS_FAILURE = 'HANDLE_FETCH_TRACKS_FAILURE';
-export const handleFetchTracks = () => (dispatch, getState) => {
+export const handleFetchTracks = (isRefresh = false) => (dispatch, getState) => {
   dispatch({
-    type: HANDLE_FETCH_TRACKS_REQUEST
+    type: HANDLE_FETCH_TRACKS_REQUEST,
+    payload: {
+      isRefresh
+    }
   });
 
   API.getDashboard(
