@@ -10,11 +10,15 @@ import {
 
 import {
   View,
-  ListView,
   Image,
   Text,
   Dimensions,
+  ListView
 } from 'react-native';
+
+// import SwipeableListView from 'SwipeableListView';
+import SwipeableQuickActions from 'SwipeableQuickActions';
+import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
 
 class Dashboard extends React.Component {
   constructor () {
@@ -52,18 +56,20 @@ class Dashboard extends React.Component {
           <Image style={styles.listItemLeftImage} resizeMode="contain" source={{uri: track.productImage}} />
         </View>
         <View style={styles.listItemContainerRightChild}>
-          <View style={[styles.listItemProductNameContainer, this.state.productNameDynamicWidth]}>
+          <View style={[styles.listItemProductNameContainer]}>
             <Text style={styles.productDetails}>{track.productName}</Text>
           </View>
           <View style={styles.listItemProductDetailsContainer}>
             <Text style={[styles.productDetails, styles.price]}>₹{track.humanPrice}/-</Text>
-            <View style={[styles.sellerTag, track.isFavourable ? styles.favourableBuy : styles.unfavourableBuy]}>
-              <Icon
-                name={track.isFavourable ? 'md-arrow-round-down' : 'md-arrow-round-up'}
-                size={14}
-                color="#fff"
-                style={{height: 14, width: 8, marginRight: 2}}
-              />
+            <View style={[styles.sellerTag, !track.isFavourable ? styles.neutralBuy : track.isFavourable > 0 ? styles.favourableBuy : styles.unfavourableBuy]}>
+              { track.isFavourable ? (
+                <Icon
+                  name={track.isFavourable > 0 ? 'md-arrow-round-down' : 'md-arrow-round-up'}
+                  size={14}
+                  color="#fff"
+                  style={{height: 14, width: 8, marginRight: 2}}
+                />
+              ) : null}
               <Text style={styles.sellerName}>{track.seller}</Text>
             </View>
           </View>
@@ -81,18 +87,40 @@ class Dashboard extends React.Component {
     );
   }
 
+  renderQuickActions () {
+    return (
+      <SwipeableQuickActions>
+        <SwipeableQuickActionButton
+          imageSource={require('./logo.png')}
+          />
+      </SwipeableQuickActions>
+    )
+  }
+
   renderResults () {
     const { tracks } = this.props;
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const listViewDataSource = ds.cloneWithRows(Object.keys(tracks).map(id => tracks[id]));
+    if (!Object.keys(tracks).length) {
+      return null;
+    }
+
+    // let ds = SwipeableListView.getNewDataSource();
+    //
+    const ds = new ListView.DataSource({
+      sectionHeaderHasChanged: (r1, r2) => r1 !== r2,
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    const listViewDataSource = ds.cloneWithRowsAndSections(
+      {Products: Object.keys(tracks).map(id => tracks[id])}, ['Products']
+    );
+
     return (
       <ListView
-        enableEmptySections={true}
+        bounceFirstRowOnMount={true}
         dataSource={listViewDataSource}
         renderSectionHeader={this.renderHeader}
         renderRow={this.renderTrack.bind(this)}
-        loadData={this.props.onReloadAlerts}
-
+        renderQuickActions={this.renderQuickActions}
       />
     );
   }

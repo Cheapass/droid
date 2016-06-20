@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center'
-    // backgroundColor: '#0B315B'
+    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
   tracksHeader: {
     justifyContent: 'space-between',
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
   },
   favourableBuy: {
     backgroundColor: '#30C077'
+  },
+  neutralBuy: {
+    backgroundColor: '#ababab'
   },
   unfavourableBuy: {
     backgroundColor: '#FD4B47'
