@@ -52,7 +52,9 @@ const tracksById = (state = {}, action) => {
             ...track,
             seller: sellerMap[sellerData.seller],
             isFavourable: track.alertToPrice ? track.currentPrice <= track.alertToPrice ? 1 : -1 : 0,
-            humanPrice: numberWithCommas(track.currentPrice)
+            humanPrice: numberWithCommas(track.currentPrice),
+            productURL: sellerData.seller === 'amazon' ? `com.amazon.mobile.shopping://${track.productURL.replace('http://', '').replace('/dp/', '/products/')}` : track.productURL,
+            fallbackProductURL: track.productURL,
           }
         ))
       ).reduce((a, b) =>

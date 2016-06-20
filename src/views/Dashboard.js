@@ -61,7 +61,9 @@ class Dashboard extends React.Component {
   renderTrack (track) {
     return (
       <TouchableNativeFeedback
-        onPress={() => Linking.openURL(track.productURL)}
+        onPress={() => Linking.canOpenURL(track.productURL).then(supported =>
+          Linking.openURL(supported ? track.productURL : track.fallbackProductURL)
+        )}
         background={TouchableNativeFeedback.Ripple('#ededed', false)}
         >
         <View style={styles.listItemContainer}>
