@@ -21,6 +21,8 @@ import {
   Dimensions,
   ListView,
   RefreshControl,
+  TouchableNativeFeedback,
+  Linking,
 } from 'react-native';
 
 // import SwipeableListView from 'SwipeableListView';
@@ -58,30 +60,35 @@ class Dashboard extends React.Component {
 
   renderTrack (track) {
     return (
-      <View style={styles.listItemContainer}>
-        <View style={styles.listItemContainerLeftChild}>
-          <Image style={styles.listItemLeftImage} resizeMode="contain" source={{uri: track.productImage}} />
-        </View>
-        <View style={styles.listItemContainerRightChild}>
-          <View style={[styles.listItemProductNameContainer]}>
-            <Text style={styles.productDetails}>{track.productName}</Text>
+      <TouchableNativeFeedback
+        onPress={() => Linking.openURL(track.productURL)}
+        background={TouchableNativeFeedback.Ripple('#ededed', false)}
+        >
+        <View style={styles.listItemContainer}>
+          <View style={styles.listItemContainerLeftChild}>
+            <Image style={styles.listItemLeftImage} resizeMode="contain" source={{uri: track.productImage}} />
           </View>
-          <View style={styles.listItemProductDetailsContainer}>
-            <Text style={[styles.productDetails, styles.price]}>₹{track.humanPrice}/-</Text>
-            <View style={[styles.sellerTag, !track.isFavourable ? styles.neutralBuy : track.isFavourable > 0 ? styles.favourableBuy : styles.unfavourableBuy]}>
-              { track.isFavourable ? (
-                <Icon
-                  name={track.isFavourable > 0 ? 'md-arrow-round-down' : 'md-arrow-round-up'}
-                  size={14}
-                  color="#fff"
-                  style={{height: 14, width: 8, marginRight: 2}}
-                />
-              ) : null}
-              <Text style={styles.sellerName}>{track.seller}</Text>
+          <View style={styles.listItemContainerRightChild}>
+            <View style={[styles.listItemProductNameContainer]}>
+              <Text style={styles.productDetails}>{track.productName}</Text>
+            </View>
+            <View style={styles.listItemProductDetailsContainer}>
+              <Text style={[styles.productDetails, styles.price]}>₹{track.humanPrice}/-</Text>
+              <View style={[styles.sellerTag, !track.isFavourable ? styles.neutralBuy : track.isFavourable > 0 ? styles.favourableBuy : styles.unfavourableBuy]}>
+                { track.isFavourable ? (
+                  <Icon
+                    name={track.isFavourable > 0 ? 'md-arrow-round-down' : 'md-arrow-round-up'}
+                    size={14}
+                    color="#fff"
+                    style={{height: 14, width: 8, marginRight: 2}}
+                  />
+                ) : null}
+                <Text style={styles.sellerName}>{track.seller}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableNativeFeedback>
     );
   }
 

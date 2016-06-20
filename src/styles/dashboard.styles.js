@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingLeft: 0,
     borderBottomWidth: 1,
-    borderBottomColor: '#CECED2'
+    borderBottomColor: '#ededed'
   },
   listItemProductNameContainer: {
     width: 150,
