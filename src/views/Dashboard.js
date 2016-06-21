@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingOverlay from './LoadingOverlay';
 import { connect } from 'react-redux';
 import styles from '../styles/dashboard.styles';
+import FCM from 'react-native-fcm';
 
 import {
   getTracks,
@@ -26,8 +27,8 @@ import {
 } from 'react-native';
 
 // import SwipeableListView from 'SwipeableListView';
-import SwipeableQuickActions from 'SwipeableQuickActions';
-import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
+// import SwipeableQuickActions from 'SwipeableQuickActions';
+// import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
 
 class Dashboard extends React.Component {
   constructor () {
@@ -41,6 +42,36 @@ class Dashboard extends React.Component {
     });
 
     this.props.handleFetchTracks();
+  }
+
+  componentWillMount () {
+    FCM.requestPermissions();
+    FCM.getFCMToken().then(token => {
+      console.log('----------getFCMToken-----------');
+      console.log(token)
+      console.log('----------/getFCMToken--------');
+      // store fcm token in your server
+    });
+
+    this.notificationUnsubscribe = FCM.on('notification', (notif) => {
+      // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
+      console.log('----------notification------------');
+      console.log(notif);
+      console.log('--------/notification---------');
+    });
+
+    this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
+      console.log('----------refreshToken--------------');
+      console.log(token)
+      console.log('---------/refreshToken--------');
+      // fcm token may not be available on first load, catch it here
+    });
+  }
+
+  componentWillUnmount() {
+    // prevent leak
+    this.refreshUnsubscribe();
+    this.notificationUnsubscribe();
   }
 
   measureMainComponent () {

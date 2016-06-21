@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "596203593464",
+    "firebase_url": "https://t-gateway-689.firebaseio.com",
+    "project_id": "t-gateway-689",
+    "storage_bucket": "t-gateway-689.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596203593464:android:036d0e743c00f257",
+        "android_client_info": {
+          "package_name": "in.cheapass.droid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596203593464-cv83li4ckn8u7u1rdmf0ua0i8m093jo9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1n9mTRLoT0hr9A4rFbYS47-ROnqIAfak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
