@@ -13,7 +13,7 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 public class MainActivity extends ReactActivity {
 
-    private ReactNativePushNotificationPackage mReactNativePushNotificationPackage; 
+    private ReactNativePushNotificationPackage mReactNativePushNotificationPackage;
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "Cheapass India";
+        return "droid";
     }
 
     /**
