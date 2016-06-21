@@ -4,6 +4,8 @@ import LoadingOverlay from './LoadingOverlay';
 import { connect } from 'react-redux';
 import styles from '../styles/dashboard.styles';
 
+var PushNotification = require('react-native-push-notification');
+
 import {
   getTracks,
   getIsFetchingTracks,
@@ -41,6 +43,30 @@ class Dashboard extends React.Component {
     });
 
     this.props.handleFetchTracks();
+
+    PushNotification.configure({
+
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: function(token) {
+          console.log( 'TOKEN:', token );
+      },
+
+      // (required) Called when a remote or local notification is opened or received
+      onNotification: function(notification) {
+          console.log( 'NOTIFICATION:', notification );
+      },
+
+      // Should the initial notification be popped automatically
+      // default: true
+      popInitialNotification: true,
+    });
+  }
+
+  componentDidUpdate () {
+    PushNotification.localNotificationSchedule({
+      message: 'My Notification Message', // (required)
+      date: new Date(Date.now() + (10 * 1000)) // in 60 secs
+    });
   }
 
   measureMainComponent () {
