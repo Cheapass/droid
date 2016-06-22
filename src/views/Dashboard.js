@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
       case 'fcm.ACTION.PRICE_DROP_ALERT': {
         Alert.alert(
           'Price Drop Alert',
-          `${notif.productName} is now available at Rs.${notif.currentPrice} (Old Price: Rs.${notif.oldPrice}) `,
+          `${notif.productName} is now available at Rs.${notif.currentPrice}/-`,
           [
             {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
             {text: 'Buy Now', onPress: () => Linking.openURL(notif.productURL)},
