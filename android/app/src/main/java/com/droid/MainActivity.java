@@ -1,6 +1,7 @@
-package com.droid;
+package in.cheapass.droid;
 
 import com.facebook.react.ReactActivity;
+import com.evollu.react.fcm.FIRMessagingPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -8,7 +9,14 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import android.content.Intent;
+
 public class MainActivity extends ReactActivity {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+    }
+
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -36,6 +44,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+        new FIRMessagingPackage(getIntent()),
         new VectorIconsPackage()
         );
     }

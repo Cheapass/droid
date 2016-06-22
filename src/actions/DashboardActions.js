@@ -1,3 +1,9 @@
+import {
+  AsyncStorage
+} from 'react-native';
+
+import keys from '../config/keys';
+
 import API from '../remote/apis';
 
 import {
@@ -27,4 +33,19 @@ export const handleFetchTracks = (isRefresh = false) => (dispatch, getState) => 
       type: HANDLE_FETCH_TRACKS_FAILURE
     })
   )
+}
+
+export const handleRegisterDevice = (token) => (dispatch, getState) => {
+  API.requestAppInstallation({
+    email: getLoginForm(getState()).email,
+    token,
+  })
+  .then((response) => {
+    if (response.status === 'ok') {
+      AsyncStorage.setItem(keys.STORAGE_KEY_IS_INSTALLED, 'true');
+    }
+  })
+  .catch(e => {
+    console.log('exception caught in _handleAppInstallation ', e);
+  });
 }

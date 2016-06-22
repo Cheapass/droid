@@ -6,7 +6,7 @@ const API = {
   },
 
   requestAppInstallation (data) {
-    return fetch('https://cheapass.in/mobile/register/ios', {
+    return fetch('https://cheapass.in/mobile/register', {
       credentials: 'same-origin',
       method: 'post',
       headers: {
@@ -20,7 +20,7 @@ const API = {
       console.log('requestAppInstallation success ', response);
       return response;
     })
-    .catch(e => console.log('error hitting /mobile/register/ios ', e));
+    .catch(e => console.log('error hitting /mobile/register ', e));
   },
 
   requestOTP (data) {

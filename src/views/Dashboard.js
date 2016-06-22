@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingOverlay from './LoadingOverlay';
 import { connect } from 'react-redux';
 import styles from '../styles/dashboard.styles';
+import FCM from 'react-native-fcm';
 
 import {
   getTracks,
@@ -11,7 +12,8 @@ import {
 } from '../reducers';
 
 import {
-  handleFetchTracks
+  handleFetchTracks,
+  handleRegisterDevice,
 } from '../actions/DashboardActions';
 
 import {
@@ -23,11 +25,12 @@ import {
   RefreshControl,
   TouchableNativeFeedback,
   Linking,
+  Alert,
 } from 'react-native';
 
 // import SwipeableListView from 'SwipeableListView';
-import SwipeableQuickActions from 'SwipeableQuickActions';
-import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
+// import SwipeableQuickActions from 'SwipeableQuickActions';
+// import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
 
 class Dashboard extends React.Component {
   constructor () {
@@ -36,11 +39,42 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount () {
+    FCM.requestPermissions();
+    FCM.getFCMToken().then(token => this.onToken(token));
+    this.refreshUnsubscribe = FCM.on('refreshToken', this.onToken);
+    this.notificationUnsubscribe = FCM.on('notification', this.onNotification);
+
     this.setState({
       productNameDynamicWidth: {width: (Dimensions.get('window').width / 2) - 10}
     });
 
     this.props.handleFetchTracks();
+  }
+
+  componentWillUnmount() {
+    // prevent leak
+    this.refreshUnsubscribe();
+    this.notificationUnsubscribe();
+  }
+
+  onNotification (notif) {
+    // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
+    switch (notif.fcm.action) {
+      case 'fcm.ACTION.PRICE_DROP_ALERT': {
+        Alert.alert(
+          'Price Drop Alert',
+          `${notif.productName} is now available at Rs.${notif.currentPrice} (Old Price: Rs.${notif.oldPrice}) `,
+          [
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'Buy Now', onPress: () => Linking.openURL(notif.productURL)},
+          ]
+        )
+      }
+    }
+  }
+
+  onToken (token) {
+    this.props.handleRegisterDevice(token);
   }
 
   measureMainComponent () {
@@ -172,5 +206,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  handleFetchTracks
+  handleFetchTracks,
+  handleRegisterDevice,
 })(Dashboard);
