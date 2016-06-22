@@ -12,7 +12,8 @@ import {
 } from '../reducers';
 
 import {
-  handleFetchTracks
+  handleFetchTracks,
+  handleRegisterDevice,
 } from '../actions/DashboardActions';
 
 import {
@@ -37,20 +38,10 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({
-      productNameDynamicWidth: {width: (Dimensions.get('window').width / 2) - 10}
-    });
-
-    this.props.handleFetchTracks();
-  }
-
-  componentWillMount () {
     FCM.requestPermissions();
     FCM.getFCMToken().then(token => {
-      console.log('----------getFCMToken-----------');
-      console.log(token)
-      console.log('----------/getFCMToken--------');
       // store fcm token in your server
+      this.props.handleRegisterDevice(token);
     });
 
     this.notificationUnsubscribe = FCM.on('notification', (notif) => {
@@ -61,11 +52,15 @@ class Dashboard extends React.Component {
     });
 
     this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
-      console.log('----------refreshToken--------------');
-      console.log(token)
-      console.log('---------/refreshToken--------');
       // fcm token may not be available on first load, catch it here
+      this.props.handleRegisterDevice(token);
     });
+
+    this.setState({
+      productNameDynamicWidth: {width: (Dimensions.get('window').width / 2) - 10}
+    });
+
+    this.props.handleFetchTracks();
   }
 
   componentWillUnmount() {
@@ -203,5 +198,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  handleFetchTracks
+  handleFetchTracks,
+  handleRegisterDevice,
 })(Dashboard);
