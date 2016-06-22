@@ -25,6 +25,7 @@ import {
   RefreshControl,
   TouchableNativeFeedback,
   Linking,
+  Alert,
 } from 'react-native';
 
 // import SwipeableListView from 'SwipeableListView';
@@ -39,22 +40,9 @@ class Dashboard extends React.Component {
 
   componentDidMount () {
     FCM.requestPermissions();
-    FCM.getFCMToken().then(token => {
-      // store fcm token in your server
-      this.props.handleRegisterDevice(token);
-    });
-
-    this.notificationUnsubscribe = FCM.on('notification', (notif) => {
-      // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
-      console.log('----------notification------------');
-      console.log(notif);
-      console.log('--------/notification---------');
-    });
-
-    this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
-      // fcm token may not be available on first load, catch it here
-      this.props.handleRegisterDevice(token);
-    });
+    FCM.getFCMToken().then(token => this.onToken(token));
+    this.refreshUnsubscribe = FCM.on('refreshToken', this.onToken);
+    this.notificationUnsubscribe = FCM.on('notification', this.onNotification);
 
     this.setState({
       productNameDynamicWidth: {width: (Dimensions.get('window').width / 2) - 10}
@@ -67,6 +55,26 @@ class Dashboard extends React.Component {
     // prevent leak
     this.refreshUnsubscribe();
     this.notificationUnsubscribe();
+  }
+
+  onNotification (notif) {
+    // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
+    switch (notif.fcm.action) {
+      case 'fcm.ACTION.PRICE_DROP_ALERT': {
+        Alert.alert(
+          'Price Drop Alert',
+          `${notif.productName} is now available at Rs.${notif.currentPrice} (Old Price: Rs.${notif.oldPrice}) `,
+          [
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'Buy Now', onPress: () => Linking.openURL(notif.productURL)},
+          ]
+        )
+      }
+    }
+  }
+
+  onToken (token) {
+    this.props.handleRegisterDevice(token);
   }
 
   measureMainComponent () {

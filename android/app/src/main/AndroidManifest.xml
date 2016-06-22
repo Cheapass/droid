@@ -35,7 +35,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         <intent-filter>
-            <action android:name="fcm.ACTION.HELLO" />
+            <action android:name="fcm.ACTION.PRICE_DROP_ALERT" />
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
       </activity>
