@@ -4,7 +4,10 @@ const LoginStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#0B315B'
+    backgroundColor: '#0B315B',
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    // borderColor: 'red'
   },
   logo: {
     height: 47,
@@ -22,10 +25,13 @@ const LoginStyles = StyleSheet.create({
     // fontWeight: '600'
   },
   formContainer: {
-    position: 'absolute',
-    bottom: 80,
-    left: 0,
-    right: 0
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
+    // position: 'absolute',
+    // bottom: 80,
+    // left: 0,
+    // right: 0
   },
   emailInputBar: {
     flexDirection: 'row',

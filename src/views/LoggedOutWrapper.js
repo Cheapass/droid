@@ -3,7 +3,6 @@ import styles from '../styles/auth.styles';
 import LoadingOverlay from './LoadingOverlay';
 
 import {
-  ScrollView,
   View,
   Image,
   Text,
@@ -18,13 +17,16 @@ class LoggedOutWrapper extends React.Component {
           source={require('./logo.png')}
         />
         <Text style={styles.tagLine}>Simplest Price Drop Alerts via Push Notifications</Text>
-        <ScrollView
-          contentContainerStyle={{flex: 1}}
+        <View
+          style={{flex: 1}}
           keyboardShouldPersistTaps={true}
           >
           {this.props.children}
-        </ScrollView>
-        <LoadingOverlay isVisible={this.props.showLoader} />
+        </View>
+        { this.props.showLoader ?
+          <LoadingOverlay isVisible={true} /> :
+          null
+        }
       </View>
     );
   }
