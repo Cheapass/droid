@@ -9,7 +9,16 @@ import Login from './Login';
 import Otp from './Otp';
 import Dashboard from './Dashboard';
 
+import {
+  StatusBar,
+} from 'react-native';
+
 class Root extends React.Component {
+  componentDidMount () {
+    StatusBar.setBackgroundColor('#0B315B');
+    StatusBar.setTranslucent(true);
+  }
+
   render () {
     return (
       <Provider store={store}>
@@ -18,7 +27,7 @@ class Root extends React.Component {
             <Scene key="login" component={Login} title="Login" hideNavBar={true} />
             <Scene key="auth" component={Auth} title="Auth" hideNavBar={true} initial={true} />
             <Scene key="otp" component={Otp} title="Verify" hideNavBar={true} />
-            <Scene key="dashboard" component={Dashboard} title="Dashboard" />
+            <Scene key="dashboard" component={Dashboard} title="Dashboard" hideNavBar={true} />
           </Scene>
         </RouterWithRedux>
       </Provider>
