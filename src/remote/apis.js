@@ -57,6 +57,22 @@ const API = {
       return response;
     })
     .catch(e => console.log('error hitting /mobile/verify ', e));
+  },
+
+  addProduct ({email, url}) {
+    return fetch(`https://cheapass.in/inputurl?url=${encodeURIComponent(url)}`)
+      .then(response => response.json())
+      .then(response => {
+        if (response.error) {
+          /* globals Promise */
+          return Promise.resolve({
+            code: 'error',
+            status: response.error
+          })
+        }
+        return fetch(`https://cheapass.in/alert?email=${encodeURIComponent(email)}&url=${encodeURIComponent(url)}`)
+          .then(response => response.json())
+      })
   }
 };
 

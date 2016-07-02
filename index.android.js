@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 import Root from './src/views/Root';
+import Share from './share.android';
 
 class droid extends Component {
   render() {
@@ -15,3 +16,4 @@ class droid extends Component {
 }
 
 AppRegistry.registerComponent('droid', () => droid);
+AppRegistry.registerComponent('CheapassShare', () => Share);

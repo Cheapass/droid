@@ -1,3 +1,4 @@
 <resources>
+    <string name="title_activity_share">Add to Cheapass</string>
     <string name="app_name">Cheapass</string>
 </resources>
