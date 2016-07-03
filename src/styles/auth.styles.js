@@ -56,8 +56,9 @@ const LoginStyles = StyleSheet.create({
   emailInput: {
     fontSize: 18,
     color: 'white',
-    padding: 10,
-    paddingLeft: 0,
+    paddingBottom: 8,
+    // paddingLeft: 0,
+    // borderBottomWidth: 0,
     flex: 1
   },
   emailNotFound: {

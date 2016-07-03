@@ -39,6 +39,7 @@ class Login extends React.Component {
               autoCorrect={false}
               returnKeyType={'next'}
               keyboardType={'email-address'}
+              underlineColorAndroid="rgba(0,0,0,0)"
               enablesReturnKeyAutomatically={true}
               onChangeText={(text) => this.props.onChange(text)}
               onSubmitEditing={() => this.props.onSubmit()}

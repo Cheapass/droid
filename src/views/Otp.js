@@ -46,6 +46,7 @@ export default class Otp extends React.Component {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="numeric"
+              underlineColorAndroid="rgba(0,0,0,0)"
               enablesReturnKeyAutomatically={true}
               onChangeText={(text) => this.props.onChange(text)}
               onSubmitEditing={() => this.props.onSubmit()}
