@@ -77,28 +77,13 @@ class Dashboard extends React.Component {
     this.props.handleRegisterDevice(token);
   }
 
-  measureMainComponent () {
-    this.refs.containerView.measure((ox, oy, width, height) => {
-      const itemMargin = 0;
-      const availableSpace = width - ( itemMargin * 4 );
-      const itemWidth = Math.floor(availableSpace / 2);
-
-      this.setState({
-        rootViewWidth: width,
-        rootViewHeight: height,
-        itemWidth,
-        itemMargin
-      });
-    });
-  }
-
   renderTrack (track) {
     return (
       <TouchableNativeFeedback
         onPress={() => Linking.canOpenURL(track.productURL).then(supported =>
           Linking.openURL(supported ? track.productURL : track.fallbackProductURL)
         )}
-        background={TouchableNativeFeedback.Ripple('#ededed', false)}
+        background={TouchableNativeFeedback.SelectableBackground()}
         >
         <View style={styles.listItemContainer}>
           <View style={styles.listItemContainerLeftChild}>
@@ -137,15 +122,15 @@ class Dashboard extends React.Component {
     );
   }
 
-  renderQuickActions () {
-    return (
-      <SwipeableQuickActions>
-        <SwipeableQuickActionButton
-          imageSource={require('./logo.png')}
-          />
-      </SwipeableQuickActions>
-    )
-  }
+  // renderQuickActions () {
+  //   return (
+  //     <SwipeableQuickActions>
+  //       <SwipeableQuickActionButton
+  //         imageSource={require('./logo.png')}
+  //         />
+  //     </SwipeableQuickActions>
+  //   )
+  // }
 
   renderResults () {
     const { tracks, isRefreshing } = this.props;
@@ -170,7 +155,6 @@ class Dashboard extends React.Component {
         dataSource={listViewDataSource}
         renderSectionHeader={this.renderHeader}
         renderRow={this.renderTrack.bind(this)}
-        renderQuickActions={this.renderQuickActions}
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}
