@@ -58,7 +58,7 @@ class Share extends Component {
         onClosed={this.onClose}
         >
         <View style={{ alignItems: 'center', justifyContent:'center', flex: 1 }}>
-          <View style={{ backgroundColor: 'rgba(0,0,0,0)', height: 240, width: 320, padding: 10 }}>
+          <View style={{ backgroundColor: 'rgba(0,0,0,0)', height: 240, width: 320 }}>
             <Image
               style={styles.logo}
               source={require('./logo.png')}
