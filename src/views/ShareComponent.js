@@ -60,7 +60,6 @@ class Share extends Component {
             { this.props.isFetching ?
               <View style={{alignItems: 'center', justifyContent:'center', flex: 1}}>
                 <Text>Please wait...</Text>
-                <Text>Trying to set price drop alert on {this.props.email}</Text>
               </View> :
               !this.props.hasFailed ?
               <View style={{alignItems: 'center', flex: 1}}>

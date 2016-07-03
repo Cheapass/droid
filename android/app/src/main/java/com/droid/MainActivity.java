@@ -13,7 +13,7 @@ import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
     @Override
-    protected void onNewIntent(Intent intent) {
+    public void onNewIntent(Intent intent) {
         setIntent(intent);
     }
 
