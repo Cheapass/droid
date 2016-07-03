@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import Modal from 'react-native-modalbox'
 import ShareExtension from 'react-native-share-extension'
 import keys from '../config/keys';
+import styles from '../styles/auth.styles';
 import {
   Text,
   View,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -56,17 +58,25 @@ class Share extends Component {
         onClosed={this.onClose}
         >
         <View style={{ alignItems: 'center', justifyContent:'center', flex: 1 }}>
-          <View style={{ backgroundColor: 'white', height: 200, width: 300, padding: 10 }}>
+          <View style={{ backgroundColor: 'rgba(0,0,0,0)', height: 240, width: 320, padding: 10 }}>
+            <Image
+              style={styles.logo}
+              source={require('./logo.png')}
+            />
             { this.props.isFetching ?
               <View style={{alignItems: 'center', justifyContent:'center', flex: 1}}>
-                <Text>Please wait...</Text>
-              </View> :
-              !this.props.hasFailed ?
-              <View style={{alignItems: 'center', flex: 1}}>
-                <Text>{this.props.product.name} set on {this.props.product.email}</Text>
+                <Text style={{fontSize: 16, color: '#fff'}}>Hold on! Setting the alert...</Text>
               </View> :
               <View style={{alignItems: 'center', justifyContent:'center', flex: 1}}>
-                <Text>{this.props.status}</Text>
+                <Text style={{
+                  textAlign: 'center',
+                  fontSize: 25,
+                  color: '#fff',
+                  marginBottom: 10,
+                }}>
+                {this.props.status}
+                </Text>
+                <Text>(Swipe down to dismiss)</Text>
               </View>
             }
           </View>
