@@ -32,6 +32,19 @@ import {
 // import SwipeableQuickActions from 'SwipeableQuickActions';
 // import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
 
+
+const EmptyDashboard = () =>
+  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <Text style={{marginBottom: 20}}>Uh oh! You're not tracking any items, yet.</Text>
+    <TouchableNativeFeedback
+      onPress={() => Linking.openURL('http://i.giphy.com/ReC7BctfZh25q.gif')}
+      >
+      <View style={{borderBottomWidth: 1, borderBottomColor: '#0B315B'}}>
+        <Text>Quickly watch this video to get started!</Text>
+      </View>
+    </TouchableNativeFeedback>
+  </View>
+
 class Dashboard extends React.Component {
   constructor () {
     super();
@@ -135,7 +148,7 @@ class Dashboard extends React.Component {
   renderResults () {
     const { tracks, isRefreshing } = this.props;
     if (!Object.keys(tracks).length) {
-      return null;
+      return <EmptyDashboard />;
     }
 
     // let ds = SwipeableListView.getNewDataSource();
