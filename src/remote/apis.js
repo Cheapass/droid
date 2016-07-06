@@ -5,6 +5,16 @@ const API = {
     .then((response) => response.json());
   },
 
+  getProductPriceHistory ({seller, id}) {
+    return fetch(`https://cheapass.in/track/${seller}/${id}?app=1`)
+    .then(response => response.json())
+    .then(response => {
+      console.log('getProduct success ', response);
+      return response;
+    })
+    .catch(e => console.log(`error hitting https://cheapass.in/track/${seller}/${id}?app=1`, e));
+  },
+
   requestAppInstallation (data) {
     return fetch('https://cheapass.in/mobile/register', {
       credentials: 'same-origin',

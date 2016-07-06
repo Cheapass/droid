@@ -50,6 +50,7 @@ const tracksById = (state = {}, action) => {
         sellerData.tracks.map(track => (
           {
             ...track,
+            sellerId: sellerData.seller,
             seller: sellerMap[sellerData.seller],
             isFavourable: track.alertToPrice ? track.currentPrice <= track.alertToPrice ? 1 : -1 : 0,
             humanPrice: numberWithCommas(track.currentPrice),

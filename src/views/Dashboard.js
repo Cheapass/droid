@@ -28,6 +28,8 @@ import {
   Alert,
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 // import SwipeableListView from 'SwipeableListView';
 // import SwipeableQuickActions from 'SwipeableQuickActions';
 // import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
@@ -74,7 +76,7 @@ class Dashboard extends React.Component {
   componentWillUnmount() {
     // prevent leak
     this.refreshUnsubscribe();
-    this.notificationUnsubscribe();
+    // this.notificationUnsubscribe();
   }
 
   onNotification (notif) {
@@ -100,9 +102,7 @@ class Dashboard extends React.Component {
   renderTrack (track) {
     return (
       <TouchableNativeFeedback
-        onPress={() => Linking.canOpenURL(track.productURL).then(supported =>
-          Linking.openURL(supported ? track.productURL : track.fallbackProductURL)
-        )}
+        onPress={() => Actions.product(track)}
         background={TouchableNativeFeedback.SelectableBackground()}
         >
         <View style={styles.listItemContainer}>
