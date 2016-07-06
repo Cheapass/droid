@@ -33,14 +33,21 @@ import {
 // import SwipeableQuickActionButton from 'SwipeableQuickActionButton';
 
 
-const EmptyDashboard = () =>
+const EmptyDashboard = ({handleFetchTracks}) =>
   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
     <Text style={{marginBottom: 20}}>Uh oh! You're not tracking any items, yet.</Text>
     <TouchableNativeFeedback
       onPress={() => Linking.openURL('http://i.giphy.com/ReC7BctfZh25q.gif')}
       >
-      <View style={{borderBottomWidth: 1, borderBottomColor: '#0B315B'}}>
+      <View style={{borderBottomWidth: 1, borderBottomColor: '#0B315B', marginBottom: 30}}>
         <Text>Quickly watch this video to get started!</Text>
+      </View>
+    </TouchableNativeFeedback>
+    <TouchableNativeFeedback
+      onPress={() => handleFetchTracks()}
+      >
+      <View style={{borderBottomWidth: 1, borderBottomColor: '#0B315B'}}>
+        <Text>Added items? Tap to Refresh.</Text>
       </View>
     </TouchableNativeFeedback>
   </View>
@@ -148,7 +155,9 @@ class Dashboard extends React.Component {
   renderResults () {
     const { tracks, isRefreshing } = this.props;
     if (!Object.keys(tracks).length) {
-      return <EmptyDashboard />;
+      return <EmptyDashboard
+        handleFetchTracks={this.props.handleFetchTracks}
+        />;
     }
 
     // let ds = SwipeableListView.getNewDataSource();
