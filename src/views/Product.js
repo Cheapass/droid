@@ -65,11 +65,15 @@ class Product extends React.Component {
               </View> :
               <View>
                 <Text>
-                  Current Price: ₹{currentPrice}
+                  Price:
                   { currentPrice < maxPrice ?
-                    ` (Down from ₹${maxPrice})` :
+                    <Text>
+                      <Text> </Text>
+                      <Text style={{textDecorationLine: 'line-through'}}>₹{maxPrice}</Text>
+                    </Text> :
                     null
                   }
+                  <Text> ₹{currentPrice}</Text>
                 </Text>
                 <Text>
                   Best Tracked Price: ₹{leastPrice}
