@@ -9,6 +9,7 @@ import Login from './Login';
 import Otp from './Otp';
 import Dashboard from './Dashboard';
 import Product from './Product';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   StatusBar,
@@ -29,7 +30,27 @@ class Root extends React.Component {
             <Scene key="auth" component={Auth} title="Auth" hideNavBar={true} initial={true} />
             <Scene key="otp" component={Otp} title="Verify" hideNavBar={true} />
             <Scene key="dashboard" component={Dashboard} title="Dashboard" hideNavBar={true} />
-            <Scene key="product" component={Product} title="Product" hideNavBar={false} />
+            <Scene
+              key="product"
+              component={Product}
+              title=""
+              hideNavBar={false}
+              navigationBarStyle={{backgroundColor: '#0B315B'}}
+              hideBackImage={true}
+              backTitle={<Icon
+                name={'md-arrow-back'}
+                size={26}
+                color="#fff"
+                />}
+              backButtonTextStyle={{marginTop: -3}}
+              rightTitle={<Icon
+                name={'md-trash'}
+                size={26}
+                color="#f9847d"
+                />}
+              onRight={() => console.log('pressed')}
+              rightButtonTextStyle={{marginTop: -3}}
+              />
           </Scene>
         </RouterWithRedux>
       </Provider>

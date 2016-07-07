@@ -35,10 +35,15 @@ export default combineReducers({
 
 export const getIsFetchingPriceHistory = (state) => state.isFetching;
 export const getPriceHistory = (state) => state.priceHistory;
-export const getLeastPrice = (state) => {
+export const getMinMaxPrices = (state) => {
   if (!state.priceHistory.length) {
-    return null;
+    return {};
   }
 
-  return state.priceHistory.sort((a, b) => a.price - b.price)[0].price;
+  const sorted = state.priceHistory.sort((a, b) => a.price - b.price);
+
+  return {
+    min: sorted[0].price,
+    max: sorted[sorted.length -1].price,
+  };
 }

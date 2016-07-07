@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import {
   getIsFetchingPriceHistory,
   getPriceHistory,
-  getLeastPrice,
+  getMinMaxPrices,
 } from '../reducers/ProductReducers';
 
 import {
@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 import {
   View,
+  ScrollView,
   Image,
   Text,
   TouchableNativeFeedback,
@@ -40,20 +41,52 @@ class Product extends React.Component {
   }
 
   render() {
+    const {
+      productName,
+      productImage,
+      isFetching,
+      leastPrice,
+      currentPrice,
+      maxPrice,
+      seller,
+    } = this.props;
     return (
-      <View style={{flex: 1, paddingTop: 72, paddingLeft: 12, paddingRight: 12, backgroundColor: '#fff'}}>
-        <View style={{alignItems: 'center', justifyContent: 'center', marginBottom: 20}}>
-          <Image style={{width: 320, height: 200, marginBottom: 20}} resizeMode="contain" source={{uri: this.props.productImage}} />
-          <Text style={{fontWeight: '500', fontSize: 18}}>{this.props.productName}</Text>
-          { this.props.isFetching ?
-            <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-              <ActivityIndicator />
-              <Text>Fetching Least Price...</Text>
-            </View> :
-            <View>
-              <Text>Least Price: Rs. {this.props.leastPrice}</Text>
+      <View style={{flex: 1, position: 'relative'}}>
+        <ScrollView style={{paddingTop: 72, paddingLeft: 12, paddingRight: 12, backgroundColor: '#fff'}}>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{fontWeight: '500', fontSize: 18, marginBottom: 10}}>{productName}</Text>
+            <Image style={{width: 320, height: 200, marginBottom: 20}} resizeMode="contain" source={{uri: productImage}} />
+          </View>
+          <View>
+            { isFetching ?
+              <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                <ActivityIndicator />
+                <Text>Fetching Least Price...</Text>
+              </View> :
+              <View>
+                <Text>
+                  Current Price: ₹{currentPrice}
+                  { currentPrice < maxPrice ?
+                    ` (Down from ₹${maxPrice})` :
+                    null
+                  }
+                </Text>
+                <Text>
+                  Best Tracked Price: ₹{leastPrice}
+                </Text>
+              </View>
+            }
+          </View>
+        </ScrollView>
+
+        <View style={{position: 'absolute', bottom: 0, left: 0, right: 0}}>
+          <TouchableNativeFeedback>
+            <View style={{backgroundColor: '#2fbe6d', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{marginTop: 14, marginBottom: 14, color: '#fff', fontSize: 22, fontWeight: '500', textShadowOffset: {width: 1, height: 1}, textShadowRadius: 1, textShadowColor: 'rgba(0,0,0,0.1)'}}>
+                Get it on {seller}
+              </Text>
             </View>
-          }
+          </TouchableNativeFeedback>
         </View>
       </View>
     )
@@ -69,11 +102,15 @@ Product.propTypes = {
   seller: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = ({product}) => ({
-  isFetching: getIsFetchingPriceHistory(product),
-  priceHistory: getPriceHistory(product),
-  leastPrice: getLeastPrice(product),
-})
+const mapStateToProps = ({product}) => {
+  const { min, max } = getMinMaxPrices(product);
+  return {
+    isFetching: getIsFetchingPriceHistory(product),
+    priceHistory: getPriceHistory(product),
+    leastPrice: min,
+    maxPrice: max,
+  }
+}
 
 export default connect(mapStateToProps, {
   handleFetchPriceHistory,
