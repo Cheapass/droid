@@ -31,7 +31,6 @@ class Product extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.props);
     this.props.handleFetchPriceHistory({
       seller: this.props.sellerId,
       id: this.props._id,
@@ -52,48 +51,50 @@ class Product extends React.Component {
       maxPrice,
       seller,
     } = this.props;
+
     return (
       <View style={{flex: 1, position: 'relative'}}>
-        <ScrollView style={{paddingTop: 72, paddingLeft: 12, paddingRight: 12, backgroundColor: '#fff'}}>
+        <ScrollView
+          contentContainerStyle={{paddingLeft: 12, paddingRight: 12, paddingVertical: 72, backgroundColor: '#fff'}}
+          >
           <View style={{alignItems: 'center'}}>
             <Text style={{fontWeight: '500', fontSize: 18, marginBottom: 10}}>{productName}</Text>
             <Image style={{width: 320, height: 200, marginBottom: 20}} resizeMode="contain" source={{uri: productImage}} />
           </View>
           <View>
             { isFetching ?
-              <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <ActivityIndicator />
-                <Text>Fetching Least Price...</Text>
+                <Text> Getting Price Fluctuations...</Text>
               </View> :
-              <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start'}}>
-                <View>
-                  <Text style={{fontSize: 16}}>
-                    Best Tracked Price
-                  </Text>
-                  { currentPrice < maxPrice ?
+              <View>
+                { currentPrice < maxPrice ?
+                  <View style={{alignItems: 'center', marginBottom: 24}}>
+                    <Text style={{textAlign: 'center'}}>You could have paid</Text>
                     <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
                       <Rupee amount={maxPrice} />
-                    </Text> :
-                    null
-                  }
-                  <Text style={{textAlign: 'center', fontSize: 26}}>
-                     <Rupee amount={leastPrice} />
-                  </Text>
-                </View>
+                    </Text>
+                  </View> :
+                  null
+                }
+                <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start'}}>
+                  <View>
+                    <Text style={{textAlign: 'center', fontSize: 16}}>
+                      Best Price
+                    </Text>
+                    <Text style={{textAlign: 'center', fontSize: 26}}>
+                       <Rupee amount={leastPrice} />
+                    </Text>
+                  </View>
 
-                <View>
-                  <Text style={{fontSize: 16}}>
-                    Current Price
-                  </Text>
-                  { currentPrice < maxPrice ?
-                    <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
-                      <Rupee amount={maxPrice} />
-                    </Text> :
-                    null
-                  }
-                  <Text style={{textAlign: 'center', fontSize: 26}}>
-                    <Rupee amount={currentPrice} />
-                  </Text>
+                  <View>
+                    <Text style={{fontSize: 16}}>
+                      Current Price
+                    </Text>
+                    <Text style={{textAlign: 'center', fontSize: 26}}>
+                      <Rupee amount={currentPrice} />
+                    </Text>
+                  </View>
                 </View>
               </View>
             }
