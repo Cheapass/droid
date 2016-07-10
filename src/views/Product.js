@@ -55,7 +55,8 @@ class Product extends React.Component {
     return (
       <View style={{flex: 1, position: 'relative'}}>
         <ScrollView
-          contentContainerStyle={{paddingLeft: 12, paddingRight: 12, paddingVertical: 72, backgroundColor: '#fff'}}
+          style={{backgroundColor: '#fff'}}
+          contentContainerStyle={{paddingLeft: 12, paddingRight: 12, paddingVertical: 72}}
           >
           <View style={{alignItems: 'center'}}>
             <Text style={{fontWeight: '500', fontSize: 18, marginBottom: 10}}>{productName}</Text>
@@ -68,7 +69,7 @@ class Product extends React.Component {
                 <Text> Getting Price Fluctuations...</Text>
               </View> :
               <View>
-                { currentPrice < maxPrice ?
+                { maxPrice && currentPrice < maxPrice ?
                   <View style={{alignItems: 'center', marginBottom: 24}}>
                     <Text style={{textAlign: 'center'}}>You could have paid</Text>
                     <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
@@ -77,15 +78,19 @@ class Product extends React.Component {
                   </View> :
                   null
                 }
+
                 <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start'}}>
-                  <View>
-                    <Text style={{textAlign: 'center', fontSize: 16}}>
-                      Best Price
-                    </Text>
-                    <Text style={{textAlign: 'center', fontSize: 26}}>
-                       <Rupee amount={leastPrice} />
-                    </Text>
-                  </View>
+                  { leastPrice ?
+                    <View>
+                      <Text style={{textAlign: 'center', fontSize: 16}}>
+                        Best Price
+                      </Text>
+                      <Text style={{textAlign: 'center', fontSize: 26}}>
+                         <Rupee amount={leastPrice} />
+                      </Text>
+                    </View> :
+                    null
+                  }
 
                   <View>
                     <Text style={{fontSize: 16}}>
