@@ -51,6 +51,8 @@ class Product extends React.Component {
       maxPrice,
       alertToPrice,
       seller,
+      productURL,
+      fallbackProductURL,
     } = this.props;
 
     return (
@@ -118,7 +120,10 @@ class Product extends React.Component {
         </ScrollView>
 
         <View style={{position: 'absolute', bottom: 0, left: 0, right: 0}}>
-          <TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={() => Linking.canOpenURL(productURL).then(supported =>
+              Linking.openURL(supported ? productURL : fallbackProductURL)
+            )}>
             <View style={{backgroundColor: '#2fbe6d', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               <Text style={{marginTop: 14, marginBottom: 14, color: '#fff', fontSize: 22, fontWeight: '500', textShadowOffset: {width: 1, height: 1}, textShadowRadius: 1, textShadowColor: 'rgba(0,0,0,0.1)'}}>
                 Get it on {seller}
