@@ -23,6 +23,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+import Rupee from './Rupee';
+
 class Product extends React.Component {
   constructor() {
     super();
@@ -63,21 +65,36 @@ class Product extends React.Component {
                 <ActivityIndicator />
                 <Text>Fetching Least Price...</Text>
               </View> :
-              <View>
-                <Text>
-                  Price:
+              <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start'}}>
+                <View>
+                  <Text style={{fontSize: 16}}>
+                    Best Tracked Price
+                  </Text>
                   { currentPrice < maxPrice ?
-                    <Text>
-                      <Text> </Text>
-                      <Text style={{textDecorationLine: 'line-through'}}>₹{maxPrice}</Text>
+                    <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
+                      <Rupee amount={maxPrice} />
                     </Text> :
                     null
                   }
-                  <Text> ₹{currentPrice}</Text>
-                </Text>
-                <Text>
-                  Best Tracked Price: ₹{leastPrice}
-                </Text>
+                  <Text style={{textAlign: 'center', fontSize: 26}}>
+                     <Rupee amount={leastPrice} />
+                  </Text>
+                </View>
+
+                <View>
+                  <Text style={{fontSize: 16}}>
+                    Current Price
+                  </Text>
+                  { currentPrice < maxPrice ?
+                    <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
+                      <Rupee amount={maxPrice} />
+                    </Text> :
+                    null
+                  }
+                  <Text style={{textAlign: 'center', fontSize: 26}}>
+                    <Rupee amount={currentPrice} />
+                  </Text>
+                </View>
               </View>
             }
           </View>
