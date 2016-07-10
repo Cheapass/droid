@@ -49,6 +49,7 @@ class Product extends React.Component {
       leastPrice,
       currentPrice,
       maxPrice,
+      alertToPrice,
       seller,
     } = this.props;
 
@@ -74,6 +75,16 @@ class Product extends React.Component {
                     <Text style={{textAlign: 'center'}}>You could have paid</Text>
                     <Text style={{textDecorationLine: 'line-through', textAlign: 'center', fontSize: 18}}>
                       <Rupee amount={maxPrice} />
+                    </Text>
+                  </View> :
+                  null
+                }
+
+                { alertToPrice ?
+                  <View style={{alignItems: 'center', marginBottom: 24}}>
+                    <Text style={{textAlign: 'center'}}>Last Price Drop</Text>
+                    <Text style={{textAlign: 'center', fontSize: 18}}>
+                      <Rupee amount={alertToPrice} />
                     </Text>
                   </View> :
                   null

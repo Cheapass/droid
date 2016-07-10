@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingOverlay from './LoadingOverlay';
+import Rupee from './Rupee';
 import { connect } from 'react-redux';
 import styles from '../styles/dashboard.styles';
 import FCM from 'react-native-fcm';
@@ -114,7 +115,9 @@ class Dashboard extends React.Component {
               <Text style={styles.productDetails}>{track.productName}</Text>
             </View>
             <View style={styles.listItemProductDetailsContainer}>
-              <Text style={[styles.productDetails, styles.price]}>₹{track.humanPrice}/-</Text>
+              <Text style={[styles.productDetails, styles.price]}>
+                <Rupee amount={track.currentPrice} />
+              </Text>
               <View style={[styles.sellerTag, !track.isFavourable ? styles.neutralBuy : track.isFavourable > 0 ? styles.favourableBuy : styles.unfavourableBuy]}>
                 { track.isFavourable ? (
                   <Icon

@@ -13,9 +13,6 @@ const sellerMap = {
   myntra: 'Myntra',
 };
 
-const numberWithCommas = (number) =>
-  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case Actions.HANDLE_FETCH_TRACKS_REQUEST:
@@ -53,7 +50,6 @@ const tracksById = (state = {}, action) => {
             sellerId: sellerData.seller,
             seller: sellerMap[sellerData.seller],
             isFavourable: track.alertToPrice ? track.currentPrice <= track.alertToPrice ? 1 : -1 : 0,
-            humanPrice: numberWithCommas(track.currentPrice),
             productURL: sellerData.seller === 'amazon' ? `com.amazon.mobile.shopping://${track.productURL.replace('http://', '').replace('/dp/', '/products/')}` : track.productURL,
             fallbackProductURL: track.productURL,
           }
