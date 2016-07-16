@@ -1,4 +1,5 @@
 import API from '../remote/apis';
+import { Actions } from 'react-native-router-flux';
 
 export const HANDLE_FETCH_PRICE_HISTORY_REQUEST = 'HANDLE_FETCH_PRICE_HISTORY_REQUEST';
 export const HANDLE_FETCH_PRICE_HISTORY_SUCCESS = 'HANDLE_FETCH_PRICE_HISTORY_SUCCESS';
@@ -36,6 +37,13 @@ export const handleInitializeTrack = (track) => ({
 
 import { getProductDetails } from '../reducers';
 export const handleDeleteProduct = () => (dispatch, getState) => {
-  const { _id, sellerId } = getProductDetails(getState());
-  console.log(_id, sellerId);
+  const { _id: id, sellerId: seller } = getProductDetails(getState());
+  API.deleteProduct({
+    id,
+    seller
+  }).then(response => {
+    if (response.status === 'ok') {
+      Actions.dashboard();
+    }
+  })
 }

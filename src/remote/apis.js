@@ -83,6 +83,16 @@ const API = {
         return fetch(`https://cheapass.in/alert?email=${encodeURIComponent(email)}&url=${encodeURIComponent(url)}`)
           .then(response => response.json())
       })
+  },
+
+  deleteProduct ({id, seller}) {
+    return fetch(`https://cheapass.in/unsubscribe?seller=${seller}&id=${id}`)
+      .then(response => response.json())
+      .then(response => {
+        console.log('deleteProduct success', response);
+        return response;
+      })
+      .catch(e => console.log('error hitting /unsubscribe', e));
   }
 };
 
