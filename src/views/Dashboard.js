@@ -18,6 +18,10 @@ import {
 } from '../actions/DashboardActions';
 
 import {
+  handleInitializeTrack,
+} from '../actions/ProductActions';
+
+import {
   View,
   Image,
   Text,
@@ -103,7 +107,10 @@ class Dashboard extends React.Component {
   renderTrack (track) {
     return (
       <TouchableNativeFeedback
-        onPress={() => Actions.product(track)}
+        onPress={() => {
+          this.props.handleInitializeTrack(track);
+          Actions.product(track);
+        }}
         background={TouchableNativeFeedback.SelectableBackground()}
         >
         <View style={styles.listItemContainer}>
@@ -217,4 +224,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   handleFetchTracks,
   handleRegisterDevice,
+  handleInitializeTrack,
 })(Dashboard);

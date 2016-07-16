@@ -19,7 +19,6 @@ import {
   Text,
   TouchableNativeFeedback,
   Linking,
-  Alert,
   ActivityIndicator,
 } from 'react-native';
 

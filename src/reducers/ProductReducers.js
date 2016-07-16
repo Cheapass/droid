@@ -28,9 +28,19 @@ const priceHistory = (state = [], action) => {
   }
 }
 
+const track = (state = {}, action) => {
+  switch (action.type) {
+    case ActionTypes.HANDLE_INITIALIZE_TRACK:
+      return action.payload.track;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isFetching,
   priceHistory,
+  track,
 });
 
 export const getIsFetchingPriceHistory = (state) => state.isFetching;
@@ -47,3 +57,5 @@ export const getMinMaxPrices = (state) => {
     max: sorted[sorted.length -1].price,
   };
 }
+
+export const getProductDetails = (state) => state.track;

@@ -25,3 +25,17 @@ export const HANDLE_RESET_PRODUCT = 'HANDLE_RESET_PRODUCT';
 export const handleResetProduct = () => ({
   type: HANDLE_RESET_PRODUCT
 })
+
+export const HANDLE_INITIALIZE_TRACK = 'HANDLE_INITIALIZE_TRACK';
+export const handleInitializeTrack = (track) => ({
+  type: HANDLE_INITIALIZE_TRACK,
+  payload: {
+    track,
+  },
+})
+
+import { getProductDetails } from '../reducers';
+export const handleDeleteProduct = () => (dispatch, getState) => {
+  const { _id, sellerId } = getProductDetails(getState());
+  console.log(_id, sellerId);
+}

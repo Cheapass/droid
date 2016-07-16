@@ -42,4 +42,6 @@ export const getPriceHistory = (state) =>
 
 export const getLeastPrice = (state) =>
   fromProduct.getLeastPrice(state.product)
-  
+
+export const getProductDetails = (state) =>
+  fromProduct.getProductDetails(state.product)
