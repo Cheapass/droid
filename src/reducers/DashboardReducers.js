@@ -13,9 +13,6 @@ const sellerMap = {
   myntra: 'Myntra',
 };
 
-const numberWithCommas = (number) =>
-  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case Actions.HANDLE_FETCH_TRACKS_REQUEST:
@@ -50,10 +47,11 @@ const tracksById = (state = {}, action) => {
         sellerData.tracks.map(track => (
           {
             ...track,
+            sellerId: sellerData.seller,
             seller: sellerMap[sellerData.seller],
             isFavourable: track.alertToPrice ? track.currentPrice <= track.alertToPrice ? 1 : -1 : 0,
-            humanPrice: numberWithCommas(track.currentPrice),
             productURL: sellerData.seller === 'amazon' ? `com.amazon.mobile.shopping://${track.productURL.replace('http://', '').replace('/dp/', '/products/')}` : track.productURL,
+            productImage: track.productImage ? track.productImage : 'http://vsnats.org/wp/wp-content/uploads/IMAGE_UNAVAILABLE_2100hires.jpg',
             fallbackProductURL: track.productURL,
           }
         ))

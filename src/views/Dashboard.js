@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingOverlay from './LoadingOverlay';
+import Rupee from './Rupee';
 import { connect } from 'react-redux';
 import styles from '../styles/dashboard.styles';
 import FCM from 'react-native-fcm';
@@ -17,6 +18,10 @@ import {
 } from '../actions/DashboardActions';
 
 import {
+  handleInitializeTrack,
+} from '../actions/ProductActions';
+
+import {
   View,
   Image,
   Text,
@@ -27,6 +32,8 @@ import {
   Linking,
   Alert,
 } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
 
 // import SwipeableListView from 'SwipeableListView';
 // import SwipeableQuickActions from 'SwipeableQuickActions';
@@ -74,7 +81,7 @@ class Dashboard extends React.Component {
   componentWillUnmount() {
     // prevent leak
     this.refreshUnsubscribe();
-    this.notificationUnsubscribe();
+    // this.notificationUnsubscribe();
   }
 
   onNotification (notif) {
@@ -100,9 +107,10 @@ class Dashboard extends React.Component {
   renderTrack (track) {
     return (
       <TouchableNativeFeedback
-        onPress={() => Linking.canOpenURL(track.productURL).then(supported =>
-          Linking.openURL(supported ? track.productURL : track.fallbackProductURL)
-        )}
+        onPress={() => {
+          this.props.handleInitializeTrack(track);
+          Actions.product(track);
+        }}
         background={TouchableNativeFeedback.SelectableBackground()}
         >
         <View style={styles.listItemContainer}>
@@ -114,7 +122,9 @@ class Dashboard extends React.Component {
               <Text style={styles.productDetails}>{track.productName}</Text>
             </View>
             <View style={styles.listItemProductDetailsContainer}>
-              <Text style={[styles.productDetails, styles.price]}>₹{track.humanPrice}/-</Text>
+              <Text style={[styles.productDetails, styles.price]}>
+                <Rupee amount={track.currentPrice} />
+              </Text>
               <View style={[styles.sellerTag, !track.isFavourable ? styles.neutralBuy : track.isFavourable > 0 ? styles.favourableBuy : styles.unfavourableBuy]}>
                 { track.isFavourable ? (
                   <Icon
@@ -214,4 +224,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   handleFetchTracks,
   handleRegisterDevice,
+  handleInitializeTrack,
 })(Dashboard);
