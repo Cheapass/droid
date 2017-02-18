@@ -10,7 +10,8 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  Linking,
 } from 'react-native';
 
 class Login extends React.Component {
@@ -58,9 +59,33 @@ class Login extends React.Component {
               />
             </TouchableHighlight>
           </View>
-          { Object.keys(errors).length ? (
-            <Text style={styles.emailNotFound}>{errors.email[0]}</Text>
-          ): null}
+
+          { Object.keys(errors).length ?
+            <Text style={styles.emailNotFound}>
+              {errors.email[0]}
+            </Text> :
+            null
+          }
+
+          <TouchableHighlight
+            style={{
+              padding: 10,
+            }}
+            underlayColor="#22446C"
+            onPress={() => {
+              Linking
+              .openURL('https://cheapass.in/privacy')
+              .catch(err => console.error('An error occurred', err));
+            }}
+            >
+            <Text
+              style={{
+                textAlign: 'center',
+                color: '#d0d0d0',
+              }}
+              >Privacy Policy
+            </Text>
+          </TouchableHighlight>
         </View>
       </LoggedOutWrapper>
     );
